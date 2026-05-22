@@ -1,0 +1,64 @@
+@model FinalProject.Models.Instructor
+@{
+    ViewData["Title"] = "Add Instructor";
+}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-primary text-white d-flex align-items-center">
+                <i class="bi bi-person-plus fs-4 me-2"></i>
+                <h4 class="mb-0">Add New Instructor</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Add" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Name" class="form-label fw-bold">Full Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="E.g. Dr. Ahmed Ali" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Salary" class="form-label fw-bold">Salary ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                                <input asp-for="Salary" type="number" class="form-control" placeholder="0.00" />
+                            </div>
+                            <span asp-validation-for="Salary" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Address" class="form-label fw-bold">Address</label>
+                            <input asp-for="Address" class="form-control" placeholder="City, Country" />
+                            <span asp-validation-for="Address" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Dept_Id" class="form-label fw-bold">Department</label>
+                            <select asp-for="Dept_Id" class="form-select" asp-items="ViewBag.Depts">
+                                <option value="">-- Select Department --</option>
+                            </select>
+                            <span asp-validation-for="Dept_Id" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Crs_Id" class="form-label fw-bold">Course</label>
+                            <select asp-for="Crs_Id" class="form-select" asp-items="ViewBag.Courses">
+                                <option value="">-- Select Course --</option>
+                            </select>
+                            <span asp-validation-for="Crs_Id" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4"/>
+                    <div class="d-flex justify-content-end gap-2">
+                        <a asp-action="Index" class="btn btn-light border rounded-pill px-4"><i class="bi bi-x-circle me-2"></i>Cancel</a>
+                        <button type="submit" class="btn btn-primary rounded-pill px-5"><i class="bi bi-person-check me-2"></i>Save Instructor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

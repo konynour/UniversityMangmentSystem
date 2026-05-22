@@ -1,0 +1,26 @@
+@model FinalProject.Models.Instructor
+@{ ViewData["Title"] = "Instructor Details"; }
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-primary text-white d-flex align-items-center"><i class="bi bi-person-badge fs-4 me-2"></i><h4 class="mb-0">Instructor Information</h4></div>
+            <div class="card-body p-4 row">
+                <div class="col-md-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr><th style="width:150px;" class="text-muted"><i class="bi bi-person me-2"></i>Name:</th><td class="fw-bold fs-5">@Model.Name</td></tr>
+                            <tr><th class="text-muted"><i class="bi bi-geo-alt me-2"></i>Address:</th><td>@Model.Address</td></tr>
+                            <tr><th class="text-muted"><i class="bi bi-cash me-2"></i>Salary:</th><td>@Model.Salary.ToString("C")</td></tr>
+                            <tr><th class="text-muted"><i class="bi bi-building me-2"></i>Department:</th><td><span class="badge bg-info text-dark px-3 py-2">@(Model.Department?.Name ?? "N/A")</span></td></tr>
+                            <tr><th class="text-muted"><i class="bi bi-book me-2"></i>Course:</th><td><span class="badge bg-light text-dark border px-3 py-2">@(Model.Course?.Name ?? "N/A")</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-light p-3 text-end d-flex justify-content-end gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary rounded-pill px-4"><i class="bi bi-pencil me-2"></i>Edit Record</a>
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4"><i class="bi bi-arrow-left me-2"></i>Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

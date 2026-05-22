@@ -1,0 +1,41 @@
+@model FinalProject.Models.Course
+@{ ViewData["Title"] = "Add Course"; }
+<div class="card shadow-sm mx-auto mt-4" style="max-width: 600px;">
+  <div class="card-header bg-primary text-white"><i class="bi bi-book me-2"></i><h5 class="d-inline mb-0">Add Course</h5></div>
+  <div class="card-body p-4">
+    <form asp-action="Add" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+      <div class="mb-3">
+        <label asp-for="Name" class="form-label fw-bold"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger small"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Degree" class="form-label fw-bold">Max Degree</label>
+            <input asp-for="Degree" type="number" class="form-control" />
+            <span asp-validation-for="Degree" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="MinDegree" class="form-label fw-bold">Min Degree</label>
+            <input asp-for="MinDegree" type="number" class="form-control" />
+            <span asp-validation-for="MinDegree" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Hours" class="form-label fw-bold">Credit Hours</label>
+            <input asp-for="Hours" type="number" class="form-control" />
+            <span asp-validation-for="Hours" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Dept_Id" class="form-label fw-bold">Department</label>
+            <select asp-for="Dept_Id" class="form-select" asp-items="ViewBag.Depts"><option value="">-- Select --</option></select>
+            <span asp-validation-for="Dept_Id" class="text-danger small"></span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <a asp-action="Index" class="btn btn-light border rounded-pill px-4">Cancel</a>
+        <button type="submit" class="btn btn-primary rounded-pill px-5"><i class="bi bi-save me-2"></i>Save Course</button>
+      </div>
+    </form>
+  </div>
+</div>

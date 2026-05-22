@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NourEldin Mohamed</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        :root {
+            --bs-font-sans-serif: 'Inter', sans-serif;
+            --primary-color: #6366f1; /* Indigo */
+            --primary-hover: #4f46e5;
+            --secondary-color: #8b5cf6; /* Purple */
+            --accent-color: #f43f5e; /* Rose */
+            --bg-body: #f8fafc;
+            --surface-color: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main);
+            font-family: var(--bs-font-sans-serif);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Modern Glassmorphism Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--text-main) !important;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand img { 
+            height: 38px; 
+            margin-right: 12px;
+            filter: drop-shadow(0px 2px 4px rgba(99, 102, 241, 0.4));
+        }
+
+        .nav-link { 
+            color: var(--text-muted) !important; 
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active { 
+            color: var(--primary-color) !important;
+            background-color: #e0e7ff;
+            transform: translateY(-1px);
+        }
+
+        /* Buttons Redesign */
+        .btn {
+            font-weight: 500;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none; 
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            color: white;
+        }
+
+        .btn-primary:hover { 
+            background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+            color: white;
+        }
+
+        .btn-success { 
+            background-color: #10b981; 
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-outline-secondary {
+            border-color: var(--border-color);
+            color: var(--text-muted);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            border-color: #cbd5e1;
+        }
+
+        /* Card System */
+        .card { 
+            border: 1px solid var(--border-color); 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02), 0 8px 10px -6px rgba(0,0,0,0.01);
+            background: var(--surface-color);
+            overflow: hidden; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+        }
+
+        .card-header { 
+            background: transparent; 
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Data Tables */
+        .table-responsive {
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: white;
+        }
+        
+        .table { margin-bottom: 0; }
+        
+        .table thead th { 
+            background-color: #f8fafc; 
+            color: var(--text-muted); 
+            border-bottom: 2px solid var(--border-color); 
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+        }
+        
+        .table tbody td {
+            vertical-align: middle;
+            color: var(--text-main);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-hover tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        .table-hover tbody tr:hover { 
+            background-color: #f1f5f9; 
+        }
+
+        /* Footers */
+        footer { 
+            background: white;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted); 
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Form Controls */
+        .form-control, .form-select { 
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem 1rem;
+            color: var(--text-main);
+            background-color: #f8fafc;
+            transition: all 0.2s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            background-color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* UI Utilities */
+        .badge {
+            font-weight: 500;
+            padding: 0.4em 0.8em;
+            border-radius: 6px;
+        }
+
+        .page-header { 
+            display: flex; 
+            align-items: flex-start;
+            flex-direction: column;
+            margin-bottom: 2rem; 
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Quick Animation */
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in-up {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="~/images/CollegeLogo.png" alt="VarsityHub Logo" class="d-inline-block" />
+                <span class="d-none d-sm-inline ms-2">NourEldin<span style="font-weight:400; color:var(--primary-color);"> Mohamed</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-1 mt-3 mt-lg-0">
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index"><i class="bi bi-grid me-2"></i>Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Department" asp-action="Index"><i class="bi bi-building me-2"></i>Departments</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Instructor" asp-action="Index"><i class="bi bi-person-workspace me-2"></i>Instructors</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Course" asp-action="Index"><i class="bi bi-book me-2"></i>Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Trainee" asp-action="Index"><i class="bi bi-mortarboard me-2"></i>Trainees</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4 px-lg-5 my-4 flex-grow-1 fade-in-up">
+        @RenderBody()
+    </div>
+
+    <footer class="py-4 mt-5">
+        <div class="container text-center">
+            <div class="d-flex justify-content-center align-items-center mb-3 text-dark">
+                <img src="~/images/CollegeLogo.png" alt="University Logo" style="height:30px; margin-right:10px; filter: grayscale(100%) opacity(0.5);"/>
+                <span class="fs-5 fw-bold">NourEldin<span style="font-weight:300;"> Mohamed</span></span>
+            </div>
+            <p class="mb-1 text-muted small">Higher Education Management Dashboard</p>
+            <p class="mb-0 text-muted small">&copy; 2026 NourEldin Mohamed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        toastr.options = { 
+            "positionClass": "toast-top-right", 
+            "progressBar": true,
+            "showDuration": "300",
+            "hideDuration": "500",
+            "timeOut": "3000"
+        };
+        @if (TempData["Success"] != null) { <text>toastr.success('@TempData["Success"]');</text> }
+        @if (TempData["Error"] != null) { <text>toastr.error('@TempData["Error"]');</text> }
+        
+        // Highlight active nav link
+        $(document).ready(function() {
+            var currentPath = window.location.pathname.toLowerCase();
+            $('.nav-link').each(function() {
+                var href = $(this).attr('href').toLowerCase();
+                if (currentPath === href || currentPath.startsWith(href + '/')) {
+                    if (href !== '/' || currentPath === '/') {
+                        $(this).addClass('active');
+                    }
+                }
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
